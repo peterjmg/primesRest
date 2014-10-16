@@ -119,7 +119,7 @@ public class PrimesControllerTest
     {
         RestAssuredMockMvc.given().
                 when().
-                get("/primes/0?alg=S").
+                get("/primes/0?opt=S").
                 then().
                 statusCode(200).
                 contentType(ContentType.JSON).
@@ -132,7 +132,7 @@ public class PrimesControllerTest
     {
         RestAssuredMockMvc.given().
                 when().
-                get("/primes/2?alg=S").
+                get("/primes/2?opt=S").
                 then().
                 statusCode(200).
                 contentType(ContentType.JSON).
@@ -146,7 +146,7 @@ public class PrimesControllerTest
     {
         RestAssuredMockMvc.given().
                 when().
-                get("/primes/10?alg=S").
+                get("/primes/10?opt=S").
                 then().
                 statusCode(200).
                 contentType(ContentType.JSON).
@@ -160,7 +160,21 @@ public class PrimesControllerTest
     {
         RestAssuredMockMvc.given().
                 when().
-                get("/primes/100?alg=S").
+                get("/primes/100?opt=S").
+                then().
+                statusCode(200).
+                contentType(ContentType.JSON).
+                body("initial", equalTo(100)).
+                body("primes", hasSize(primes100.length)).
+                body("primes", contains(primes100));
+    }
+
+    @Test
+    public void primes100InStreamTest()
+    {
+        RestAssuredMockMvc.given().
+                when().
+                get("/primes/100?opt=DS").
                 then().
                 statusCode(200).
                 contentType(ContentType.JSON).
