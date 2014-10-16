@@ -155,5 +155,8 @@ public class PrimesGeneratorTest {
         values = primesGenerator.generate(30);
         Assert.assertEquals(10, values.size());
         Assert.assertArrayEquals(new Integer[]{2, 3, 5, 7, 11, 13, 17, 19, 23, 29}, values.toArray());
+
+        values = primesGenerator.generate(1000000);
+        Assert.assertEquals(78498, values.size());
     }
 }

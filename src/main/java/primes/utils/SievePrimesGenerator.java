@@ -21,12 +21,12 @@ public class SievePrimesGenerator implements PrimesGenerator {
         List<Integer> primes = new ArrayList<Integer>();
         BitSet nonPrimes = new BitSet(maxValue + 1);
 
-        for (int p = 2; p <= maxValue ; p = nonPrimes.nextClearBit(p+1)) {
-            for (int i = p * p; i <= maxValue; i += p) {
-                nonPrimes.set(i);
+        for (long p = 2; p <= maxValue ; p = nonPrimes.nextClearBit((int)p+1)) {
+            for (long i = p * p; i <= maxValue; i += p) {
+                nonPrimes.set((int)i);
             }
 
-            primes.add(p);
+            primes.add((int)p);
         }
 
         return primes;
