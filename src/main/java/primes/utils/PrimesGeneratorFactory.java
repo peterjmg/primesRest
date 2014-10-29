@@ -1,5 +1,7 @@
 package primes.utils;
 
+import primes.exception.InvalidOptionException;
+
 public class PrimesGeneratorFactory {
 
     public static final String ALG_DIVISION = "D";
@@ -13,6 +15,7 @@ public class PrimesGeneratorFactory {
     private static DivisionStreamPrimesGenerator divisionStreamPrimesGenerator = new DivisionStreamPrimesGenerator();
 
     public static PrimesGenerator getPrimesGenerator(String option)
+            throws InvalidOptionException
     {
         PrimesGenerator primesGenerator;
 
@@ -24,8 +27,10 @@ public class PrimesGeneratorFactory {
             primesGenerator = divisionCachedPrimesGenerator;
         } else if (option.equalsIgnoreCase(ALG_DIVISION_STREAM)) {
             primesGenerator = divisionStreamPrimesGenerator;
-        } else {
+        } else if (option.equalsIgnoreCase(ALG_DIVISION)) {
             primesGenerator = divisionPrimesGenerator;
+        } else {
+            throw new InvalidOptionException(option);
         }
 
         return primesGenerator;

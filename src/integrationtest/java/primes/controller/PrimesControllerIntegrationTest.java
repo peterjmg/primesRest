@@ -1,12 +1,16 @@
 package primes.controller;
 
 import org.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
 import primes.config.WebConfig;
 import primes.domain.Primes;
 
@@ -89,5 +93,16 @@ public class PrimesControllerIntegrationTest {
 
         System.out.println(String.format("JSON result: Initial %,d. Values [%s]",
                 primes.getInitial(), primes.getPrimes().toString()));
+    }
+
+    @Test
+    public void testInvalidOption() throws Exception {
+
+        try {
+            restTemplate.getForObject("http://localhost:8080/primes/10.json?opt=OOO", Primes.class);
+            throw new AssertionError("Invalid option test failed");
+        } catch (HttpClientErrorException exception) {
+            Assert.assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+        }
     }
 }

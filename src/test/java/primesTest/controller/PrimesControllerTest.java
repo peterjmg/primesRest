@@ -7,9 +7,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.web.context.WebApplicationContext;
 import primes.config.WebConfig;
 import primes.controller.PrimesController;
 
@@ -26,10 +28,13 @@ public class PrimesControllerTest
     private final Integer[] primes100 = new Integer[] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31,
             37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97 };
 
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+
     @Before
-    public void given_rest_assured_is_configured_with_greeting_controller()
+    public void setup()
     {
-        RestAssuredMockMvc.standaloneSetup(new PrimesController());
+        RestAssuredMockMvc.webAppContextSetup(webApplicationContext);
     }
 
     @Test
@@ -181,5 +186,15 @@ public class PrimesControllerTest
                 body("initial", equalTo(100)).
                 body("primes", hasSize(primes100.length)).
                 body("primes", contains(primes100));
+    }
+
+    @Test
+    public void invalidOptionTest()
+    {
+        RestAssuredMockMvc.given().
+                when().
+                get("/primes/100?opt=invalid").
+                then().
+                statusCode(400);
     }
 }

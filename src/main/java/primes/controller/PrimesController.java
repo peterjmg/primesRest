@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import primes.domain.Primes;
+import primes.exception.PrimesException;
 import primes.utils.PrimesGeneratorFactory;
 import primes.utils.PrimesGenerator;
 
@@ -16,6 +17,8 @@ import org.slf4j.LoggerFactory;
 @RequestMapping(value = "/primes")
 public class PrimesController {
 
+    public static final String OPTION_PARAMETER = "opt";
+
     static final Logger logger = LoggerFactory.getLogger(PrimesController.class);
 
     /* Can produce both json or xml responses */
@@ -23,8 +26,9 @@ public class PrimesController {
             produces={"application/json", "application/xml"})
     @ResponseStatus(HttpStatus.OK)
     public Primes primes(@PathVariable("maxValue") int maxValue,
-            @RequestParam(value = "opt", required = false,
-                    defaultValue = PrimesGeneratorFactory.ALG_DIVISION) String opt) {
+            @RequestParam(value = OPTION_PARAMETER, required = false,
+                    defaultValue = PrimesGeneratorFactory.ALG_DIVISION) String opt)
+            throws PrimesException {
 
         logger.info(String.format("Generating primes with max value %,d using option %s)", maxValue, opt));
 
