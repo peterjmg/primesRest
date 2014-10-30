@@ -17,7 +17,7 @@ public class DivisionCachedPrimesGenerator implements PrimesGenerator {
     private static int cacheMaxValue = 0;
 
     public List<Integer> generate(int maxValue) {
-        logger.info(String.format("Generating primes using Division algorithm and a cach)"));
+        logger.info(String.format("Generating primes using Division algorithm and a cache)"));
 
         List<Integer> values;
         int maxValueOfCacheCopy;

@@ -33,7 +33,7 @@ The standard request
 	http://localhost:8080/primes/10
 will use the division algorithm and return the values in json.
 
-Not most browsers by default ask for the response in XML format so to get json use e.g.
+Most browsers by default ask for the response in XML format so to get json use e.g.
 	http://localhost:8080/primes/10.json
 
 To get XML use e.g.
@@ -48,5 +48,18 @@ To execute the java 8 parallel stream implementation use opt=DS e.g.
 	http://localhost:8080/primes/10000?opt=DS
 
 
-To execute the cached implementation use opt=DC e.g.
-	http://localhost:8080/primes/10?opt=DC
+
+A second implementation has been included using Guava Cache from Google.
+To access this implementation replace primes with primesCache in the URL e.g.
+	http://localhost:8080/primesCache/1002.json
+
+This implementation supports options D (the default) and S e.g.
+	http://localhost:8080/primesCache/1002.json?opt=D
+	http://localhost:8080/primesCache/1002.json?opt=S
+
+There is a service to get the stats of the caches. Use
+	localhost:8080/primesCache/cacheStats?opt=D
+	localhost:8080/primesCache/cacheStats?opt=S
+
+
+

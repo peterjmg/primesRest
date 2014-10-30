@@ -1,29 +1,19 @@
 package primes.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import primes.exception.InvalidOptionException;
 
 import javax.servlet.http.HttpServletRequest;
 
 @ControllerAdvice(annotations = RestController.class)
-@RequestMapping(value = "/primes")
-public class PrimesControllerAdvice {
+@RequestMapping(value = "/primesCache")
+public class PrimesCacheControllerAdvice {
 
-    static final Logger logger = LoggerFactory.getLogger(PrimesControllerAdvice.class);
+    static final Logger logger = LoggerFactory.getLogger(PrimesCacheControllerAdvice.class);
 
     @ExceptionHandler(InvalidOptionException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Invalid option specified")

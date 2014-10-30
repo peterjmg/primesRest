@@ -36,7 +36,7 @@ public class PrimesController {
 
         PrimesGenerator primesGenerator = PrimesGeneratorFactory.getPrimesGenerator(opt);
 
-        long startTime, endTime = 0;
+        long startTime, endTime;
         startTime = System.currentTimeMillis();
 
         values = primesGenerator.generate(maxValue);
