@@ -21,7 +21,7 @@ public class WebAppInitializer implements WebApplicationInitializer {
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/*");
 
-        servletContext.setInitParameter("log4jConfigLocation", "classpath:log4j.xml");
+        servletContext.setInitParameter("logback.configurationFile", "classpath:logback.xml");
         Log4jConfigListener log4jListener = new Log4jConfigListener();
         servletContext.addListener( log4jListener );
     }

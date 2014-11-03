@@ -22,20 +22,8 @@
         </dependency>
 
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.7</version>
         </dependency>
 
@@ -126,6 +114,18 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>18.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>1.1.2</version>
         </dependency>
 
     </dependencies>
@@ -219,6 +219,16 @@
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <stopPort>8005</stopPort>
                     <stopKey>STOP</stopKey>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>org.eclipse.jetty.util.log.Log</name>
+                            <value>org.eclipse.jetty.util.log.Slf4jLog</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>logback.configurationFile</name>
+                            <value>./src/test/resources/logback.xml</value>
+                        </systemProperty>
+                    </systemProperties>
                 </configuration>
                 <executions>
                     <execution>
