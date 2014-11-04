@@ -66,36 +66,6 @@ public class PrimesControllerIntegrationTest {
     }
 
     @Test
-    public void testGetPrimes100UsingCache() throws Exception {
-
-        Primes primes = restTemplate.getForObject(
-                "http://localhost:8080/primes/100.json?opt=DC", Primes.class);
-
-        System.out.println(String.format("JSON result: Initial %,d. Values [%s]",
-                primes.getInitial(), primes.getPrimes().toString()));
-    }
-
-    @Test
-    public void testGetPrimes1000UsingCache() throws Exception {
-
-        Primes primes = restTemplate.getForObject(
-                "http://localhost:8080/primes/1000.json?opt=DC", Primes.class);
-
-        System.out.println(String.format("JSON result: Initial %,d. Values [%s]",
-                primes.getInitial(), primes.getPrimes().toString()));
-    }
-
-    @Test
-    public void testGetPrimes10UsingCache() throws Exception {
-
-        Primes primes = restTemplate.getForObject(
-                "http://localhost:8080/primes/10.json?opt=DC", Primes.class);
-
-        System.out.println(String.format("JSON result: Initial %,d. Values [%s]",
-                primes.getInitial(), primes.getPrimes().toString()));
-    }
-
-    @Test
     public void testInvalidOption() throws Exception {
 
         try {

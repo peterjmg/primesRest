@@ -77,50 +77,6 @@ public class PrimesGeneratorTest {
         Assert.assertEquals(10, values.size());
     }
 
-    @Test
-    public void DivisionCachedGenerateTest()
-    {
-        PrimesGenerator primesGenerator = new DivisionCachedPrimesGenerator();
-        List<Integer> values = primesGenerator.generate(0);
-        Assert.assertEquals(0, values.size());
-
-        values = primesGenerator.generate(4);
-        Assert.assertEquals(2, values.size());
-        Assert.assertTrue(values.contains(2));
-        Assert.assertTrue(values.contains(3));
-
-        values = primesGenerator.generate(30);
-        Assert.assertEquals(10, values.size());
-
-        values = primesGenerator.generate(10);
-        Assert.assertEquals(4, values.size());
-        Assert.assertTrue(values.contains(2));
-        Assert.assertTrue(values.contains(3));
-        Assert.assertTrue(values.contains(5));
-        Assert.assertTrue(values.contains(7));
-
-        values = primesGenerator.generate(7);
-        Assert.assertEquals(4, values.size());
-        Assert.assertTrue(values.contains(2));
-        Assert.assertTrue(values.contains(3));
-        Assert.assertTrue(values.contains(5));
-        Assert.assertTrue(values.contains(7));
-
-        values = primesGenerator.generate(1);
-        Assert.assertEquals(0, values.size());
-
-        values = primesGenerator.generate(2);
-        Assert.assertEquals(1, values.size());
-        Assert.assertTrue(values.contains(2));
-
-        values = primesGenerator.generate(100);
-        Assert.assertEquals(25, values.size());
-        Assert.assertTrue(values.contains(71));
-        Assert.assertTrue(values.contains(3));
-        Assert.assertFalse(values.contains(77));
-        Assert.assertTrue(values.contains(97));
-    }
-
     private void RunGenerateTest(PrimesGenerator primesGenerator)
     {
         List<Integer> values = primesGenerator.generate(0);
