@@ -2,6 +2,7 @@ package primes.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,9 @@ public class PrimesController {
 
     static final Logger logger = LoggerFactory.getLogger(PrimesController.class);
 
+    @Value("${Cache}")
+    private boolean useCache;
+
     /* Can produce both json or xml responses */
     @RequestMapping(value = "/{maxValue}", method = RequestMethod.GET,
             produces={"application/json", "application/xml"})
@@ -30,11 +34,17 @@ public class PrimesController {
                     defaultValue = PrimesGeneratorFactory.ALG_DIVISION) String opt)
             throws PrimesException {
 
-        logger.info(String.format("Generating primes with max value %,d using option %s)", maxValue, opt));
+        logger.info(String.format("Generating primes with max value %,d using option %s, " +
+                "and useCache %b)", maxValue, opt, useCache));
 
         List<Integer> values;
 
-        PrimesGenerator primesGenerator = PrimesGeneratorFactory.getPrimesGenerator(opt);
+        PrimesGenerator primesGenerator;
+        if (useCache) {
+            primesGenerator = PrimesGeneratorFactory.getPrimesCachedGenerator(opt);
+        } else {
+            primesGenerator = PrimesGeneratorFactory.getPrimesGenerator(opt);
+        }
 
         long startTime, endTime;
         startTime = System.currentTimeMillis();

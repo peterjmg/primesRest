@@ -2,11 +2,10 @@ package primes.controller;
 
 import java.util.concurrent.ExecutionException;
 
-import com.google.common.cache.CacheStats;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import primes.cache.PrimesGuavaCache;
+import primes.cache.PrimesGuavaLoadingCache;
 import primes.domain.Primes;
 import primes.domain.PrimesCacheStats;
 import primes.exception.PrimesException;
@@ -36,13 +35,13 @@ public class PrimesCacheController {
         logger.info(String.format("Generating primes from cache with max value %,d using option %s)", maxValue, opt));
 
         Primes primes;
-            PrimesGuavaCache primesGuavaCache = PrimesGuavaCacheFactory.getCache(opt);
+            PrimesGuavaLoadingCache primesGuavaLoadingCache = PrimesGuavaCacheFactory.getCache(opt);
 
         try {
             long startTime, endTime;
             startTime = System.currentTimeMillis();
 
-            primes = primesGuavaCache.get(maxValue);
+            primes = primesGuavaLoadingCache.get(maxValue);
 
             endTime = System.currentTimeMillis();
 
@@ -66,9 +65,9 @@ public class PrimesCacheController {
 
         logger.info(String.format("Getting stats for cache using option %s)", opt));
 
-        PrimesGuavaCache primesGuavaCache = PrimesGuavaCacheFactory.getCache(opt);
+        PrimesGuavaLoadingCache primesGuavaLoadingCache = PrimesGuavaCacheFactory.getCache(opt);
 
-        PrimesCacheStats primesCacheStats = primesGuavaCache.getCacheStats();
+        PrimesCacheStats primesCacheStats = primesGuavaLoadingCache.getCacheStats();
 
         logger.info(String.format("Returning stats %s)", primesCacheStats.toString()));
 

@@ -1,30 +1,30 @@
 package primes.utils;
 
-import primes.cache.PrimesGuavaCache;
+import primes.cache.PrimesGuavaLoadingCache;
 import primes.exception.InvalidOptionException;
 
 public class PrimesGuavaCacheFactory {
 
-    private static PrimesGuavaCache divisionPrimesGuavaCache =
-            (new PrimesGuavaCache(new DivisionPrimesGenerator()));
-    private static PrimesGuavaCache sievePrimesGuavaCache =
-            (new PrimesGuavaCache(new SievePrimesGenerator()));
+    private static PrimesGuavaLoadingCache divisionPrimesGuavaLoadingCache =
+            (new PrimesGuavaLoadingCache(new DivisionPrimesGenerator()));
+    private static PrimesGuavaLoadingCache sievePrimesGuavaLoadingCache =
+            (new PrimesGuavaLoadingCache(new SievePrimesGenerator()));
 
-    public static PrimesGuavaCache getCache(String option)
+    public static PrimesGuavaLoadingCache getCache(String option)
             throws InvalidOptionException
     {
-        PrimesGuavaCache primesGuavaCache;
+        PrimesGuavaLoadingCache primesGuavaLoadingCache;
 
         if (option == null) {
-            primesGuavaCache = divisionPrimesGuavaCache;
+            primesGuavaLoadingCache = divisionPrimesGuavaLoadingCache;
         } else if (option.equalsIgnoreCase(PrimesGeneratorFactory.ALG_SIEVE)) {
-            primesGuavaCache = sievePrimesGuavaCache;
+            primesGuavaLoadingCache = sievePrimesGuavaLoadingCache;
         } else if (option.equalsIgnoreCase(PrimesGeneratorFactory.ALG_DIVISION)) {
-            primesGuavaCache = divisionPrimesGuavaCache;
+            primesGuavaLoadingCache = divisionPrimesGuavaLoadingCache;
         } else {
             throw new InvalidOptionException(option);
         }
 
-        return primesGuavaCache;
+        return primesGuavaLoadingCache;
     }
 }

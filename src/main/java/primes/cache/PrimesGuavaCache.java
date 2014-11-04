@@ -1,57 +1,24 @@
 package primes.cache;
 
-import java.util.concurrent.ExecutionException;
-import com.google.common.cache.CacheLoader;
+import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheStats;
-import com.google.common.cache.LoadingCache;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import primes.domain.Primes;
-import primes.domain.PrimesCacheStats;
-import primes.exception.PrimesException;
-import primes.utils.PrimesGenerator;
 
-public class PrimesGuavaCache {
+import java.util.List;
 
-    static final Logger logger = LoggerFactory.getLogger(PrimesGuavaCache.class);
+public class PrimesGuavaCache implements PrimesCache {
 
-    LoadingCache<Integer, Primes> cache;
+    Cache<Integer, List<Integer>> cache = CacheBuilder.newBuilder().
+            maximumSize(1000).recordStats().build();
 
-    public PrimesGuavaCache(PrimesGenerator primesGenerator) {
+    @Override
+    public List<Integer> getIfPresent(int key) {
 
-        init(primesGenerator);
+        return cache.getIfPresent(key);
     }
 
-    private void init(PrimesGenerator primesGenerator) {
+    @Override
+    public void put(int key, List<Integer> primesList) {
 
-        CacheLoader<Integer, Primes> loader = new CacheLoader<Integer, Primes>() {
-
-            public Primes load(Integer maxValue) throws PrimesException {
-
-                logger.info(String.format("Using cache loader for maxValue %,d)", maxValue));
-                return new Primes(maxValue, primesGenerator.generate(maxValue));
-            }
-        };
-
-        cache = CacheBuilder.newBuilder().
-                maximumSize(1000).
-                recordStats().
-                build(loader);
-    }
-
-    public Primes get(int key) throws ExecutionException {
-
-        Primes primes = cache.get(key);
-
-        return primes;
-    }
-
-    public PrimesCacheStats getCacheStats() {
-
-        CacheStats cacheStats = cache.stats();
-
-        return new PrimesCacheStats(cacheStats.hitCount(), cacheStats.missCount(),
-                cacheStats.requestCount(), cache.size());
+        cache.put(key, primesList);
     }
 }
