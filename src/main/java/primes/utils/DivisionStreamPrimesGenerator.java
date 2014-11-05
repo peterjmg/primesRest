@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class DivisionStreamPrimesGenerator implements PrimesGenerator {
@@ -18,20 +19,11 @@ public class DivisionStreamPrimesGenerator implements PrimesGenerator {
 
         logger.info(String.format("Generating primes using division algorithm and IntStream)"));
 
-        List<Integer> values = Collections.synchronizedList(new ArrayList<>());
-
-        if (maxValue >= 2) {
-            values.add(2);
-
-            if (maxValue > 2) {
-                IntStream.rangeClosed(3, maxValue).parallel().
-                    filter(i -> IsPrime(i)).
-                    forEach(values::add);
-            }
-        }
-
-        values.sort(Comparator.<Integer>naturalOrder());
-        return values;
+        return IntStream.rangeClosed(2, maxValue).
+                parallel().
+                filter(DivisionStreamPrimesGenerator::IsPrime).
+                sorted().
+                boxed().collect(Collectors.toList());
     }
 
     public static boolean IsPrime(int value) {
