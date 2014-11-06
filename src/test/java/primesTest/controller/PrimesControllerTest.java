@@ -188,6 +188,20 @@ public class PrimesControllerTest
     }
 
     @Test
+    public void primes100InSieveStreamTest()
+    {
+        RestAssuredMockMvc.given().
+                when().
+                get("/primes/100?opt=SS").
+                then().
+                statusCode(200).
+                contentType(ContentType.JSON).
+                body("initial", equalTo(100)).
+                body("primes", hasSize(primes100.length)).
+                body("primes", contains(primes100));
+    }
+
+    @Test
     public void invalidOptionTest()
     {
         RestAssuredMockMvc.given().

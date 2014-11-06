@@ -7,10 +7,12 @@ public class PrimesGeneratorFactory {
     public static final String ALG_DIVISION = "D";
     public static final String ALG_SIEVE = "S";
     public static final String ALG_DIVISION_STREAM = "DS";
+    public static final String ALG_SIEVE_STREAM = "SS";
 
     private static PrimesGenerator sievePrimesGenerator = new SievePrimesGenerator();
     private static PrimesGenerator divisionPrimesGenerator = new DivisionPrimesGenerator();
     private static PrimesGenerator divisionStreamPrimesGenerator = new DivisionStreamPrimesGenerator();
+    private static PrimesGenerator sieveStreamPrimesGenerator = new SieveStreamPrimesGenerator();
 
     private static PrimesGenerator sievePrimesCachedGenerator =
             new PrimesCachedGenerator(new SievePrimesGenerator());
@@ -18,6 +20,8 @@ public class PrimesGeneratorFactory {
             new PrimesCachedGenerator(new DivisionPrimesGenerator());
     private static PrimesGenerator divisionStreamPrimesCachedGenerator =
             new PrimesCachedGenerator(new DivisionStreamPrimesGenerator());
+    private static PrimesGenerator sieveStreamPrimesCachedGenerator =
+            new PrimesCachedGenerator(new SieveStreamPrimesGenerator());
 
     public static PrimesGenerator getPrimesGenerator(String option)
             throws InvalidOptionException
@@ -30,6 +34,8 @@ public class PrimesGeneratorFactory {
             primesGenerator = sievePrimesGenerator;
         } else if (option.equalsIgnoreCase(ALG_DIVISION_STREAM)) {
             primesGenerator = divisionStreamPrimesGenerator;
+        } else if (option.equalsIgnoreCase(ALG_SIEVE_STREAM)) {
+            primesGenerator = sieveStreamPrimesGenerator;
         } else if (option.equalsIgnoreCase(ALG_DIVISION)) {
             primesGenerator = divisionPrimesGenerator;
         } else {
@@ -50,6 +56,8 @@ public class PrimesGeneratorFactory {
             primesGenerator = sievePrimesCachedGenerator;
         } else if (option.equalsIgnoreCase(ALG_DIVISION_STREAM)) {
             primesGenerator = divisionStreamPrimesCachedGenerator;
+        } else if (option.equalsIgnoreCase(ALG_SIEVE_STREAM)) {
+            primesGenerator = sieveStreamPrimesCachedGenerator;
         } else if (option.equalsIgnoreCase(ALG_DIVISION)) {
             primesGenerator = divisionPrimesCachedGenerator;
         } else {

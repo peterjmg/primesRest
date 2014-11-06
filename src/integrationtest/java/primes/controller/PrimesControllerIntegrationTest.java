@@ -61,6 +61,20 @@ public class PrimesControllerIntegrationTest {
         Primes primes = restTemplate.getForObject(
                 "http://localhost:8080/primes/1000.json?opt=DS", Primes.class);
 
+        Assert.assertEquals(168, primes.getPrimes().size());
+
+        System.out.println(String.format("JSON result: Initial %,d. Values [%s]",
+                primes.getInitial(), primes.getPrimes().toString()));
+    }
+
+    @Test
+    public void testGetPrimes1000UsingSieveStream() throws Exception {
+
+        Primes primes = restTemplate.getForObject(
+                "http://localhost:8080/primes/1000.json?opt=SS", Primes.class);
+
+        Assert.assertEquals(168, primes.getPrimes().size());
+
         System.out.println(String.format("JSON result: Initial %,d. Values [%s]",
                 primes.getInitial(), primes.getPrimes().toString()));
     }
