@@ -126,6 +126,63 @@ public class PrimesGeneratorTest {
 
         values = primesGenerator.generate(30);
         Assert.assertEquals(10, values.size());
+
+        values = primesGenerator.generate(1000000);
+        Assert.assertEquals(78498, values.size());
+    }
+
+    @Test
+    public void SieveStreamParallelGenerateTest()
+    {
+        PrimesGenerator primesGenerator = new SieveStreamParallelPrimesGenerator();
+
+        List<Integer> values = primesGenerator.generate(0);
+        Assert.assertEquals(0, values.size());
+
+        values = primesGenerator.generate(1);
+        Assert.assertEquals(0, values.size());
+
+        values = primesGenerator.generate(2);
+        Assert.assertEquals(1, values.size());
+        Assert.assertTrue(values.contains(2));
+
+        values = primesGenerator.generate(3);
+        Assert.assertEquals(2, values.size());
+        Assert.assertTrue(values.contains(2));
+        Assert.assertTrue(values.contains(3));
+
+        values = primesGenerator.generate(4);
+        Assert.assertEquals(2, values.size());
+        Assert.assertTrue(values.contains(2));
+        Assert.assertTrue(values.contains(3));
+
+        values = primesGenerator.generate(5);
+        Assert.assertEquals(3, values.size());
+        Assert.assertTrue(values.contains(2));
+        Assert.assertTrue(values.contains(3));
+        Assert.assertTrue(values.contains(5));
+
+        values = primesGenerator.generate(6);
+        Assert.assertEquals(3, values.size());
+        Assert.assertTrue(values.contains(2));
+        Assert.assertTrue(values.contains(3));
+        Assert.assertTrue(values.contains(5));
+
+        values = primesGenerator.generate(9);
+        Assert.assertEquals(4, values.size());
+        Assert.assertTrue(values.contains(2));
+        Assert.assertTrue(values.contains(3));
+        Assert.assertTrue(values.contains(5));
+        Assert.assertTrue(values.contains(7));
+
+        values = primesGenerator.generate(30);
+        Assert.assertEquals(10, values.size());
+
+        values = primesGenerator.generate(81);
+        Assert.assertEquals(22, values.size());
+
+        values = primesGenerator.generate(1000000);
+        Assert.assertEquals(78498, values.size());
     }
 
     private void RunGenerateTest(PrimesGenerator primesGenerator)

@@ -80,6 +80,18 @@ public class PrimesControllerIntegrationTest {
     }
 
     @Test
+    public void testGetPrimes1000UsingSieveStreamParallel() throws Exception {
+
+        Primes primes = restTemplate.getForObject(
+                "http://localhost:8080/primes/1000.json?opt=SP", Primes.class);
+
+        Assert.assertEquals(168, primes.getPrimes().size());
+
+        System.out.println(String.format("JSON result: Initial %,d. Values [%s]",
+                primes.getInitial(), primes.getPrimes().toString()));
+    }
+
+    @Test
     public void testInvalidOption() throws Exception {
 
         try {

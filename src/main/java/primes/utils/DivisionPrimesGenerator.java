@@ -12,7 +12,7 @@ public class DivisionPrimesGenerator implements PrimesGenerator {
 
     public List<Integer> generate(int maxValue) {
 
-        logger.info(String.format("Generating primes using division algorithm)"));
+        logger.info(String.format("Generating primes using division algorithm"));
 
         List<Integer> values = new ArrayList<Integer>();
 

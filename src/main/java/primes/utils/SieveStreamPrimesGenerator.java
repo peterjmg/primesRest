@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.BitSet;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Uses the sieve of Eratosthenes to determine the prime numbers and streams.
@@ -19,7 +18,7 @@ public class SieveStreamPrimesGenerator implements PrimesGenerator {
 
     public List<Integer> generate(int maxValue) {
 
-        logger.info(String.format("Generating primes using Sieve of Eratosthenes algorithm and streams)"));
+        logger.info(String.format("Generating primes using Sieve of Eratosthenes algorithm and streams"));
 
         List<Integer> primes = new ArrayList<>();
 

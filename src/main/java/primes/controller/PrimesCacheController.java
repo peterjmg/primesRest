@@ -32,7 +32,7 @@ public class PrimesCacheController {
                                  defaultValue = PrimesGeneratorFactory.ALG_DIVISION) String opt)
             throws PrimesException {
 
-        logger.info(String.format("Generating primes from cache with max value %,d using option %s)", maxValue, opt));
+        logger.info(String.format("Generating primes from cache with max value %,d using option %s", maxValue, opt));
 
         Primes primes;
             PrimesGuavaLoadingCache primesGuavaLoadingCache = PrimesGuavaCacheFactory.getCache(opt);
@@ -45,7 +45,7 @@ public class PrimesCacheController {
 
             endTime = System.currentTimeMillis();
 
-            logger.info(String.format("Retrieved from cache %,d primes with max value %,d, in %,d ms)",
+            logger.info(String.format("Retrieved from cache %,d primes with max value %,d, in %,d ms",
                     primes.getPrimes().size(), maxValue, endTime - startTime));
 
         } catch (ExecutionException e) {
@@ -63,13 +63,13 @@ public class PrimesCacheController {
                                  defaultValue = PrimesGeneratorFactory.ALG_DIVISION) String opt)
             throws PrimesException {
 
-        logger.info(String.format("Getting stats for cache using option %s)", opt));
+        logger.info(String.format("Getting stats for cache using option %s", opt));
 
         PrimesGuavaLoadingCache primesGuavaLoadingCache = PrimesGuavaCacheFactory.getCache(opt);
 
         PrimesCacheStats primesCacheStats = primesGuavaLoadingCache.getCacheStats();
 
-        logger.info(String.format("Returning stats %s)", primesCacheStats.toString()));
+        logger.info(String.format("Returning stats %s", primesCacheStats.toString()));
 
         return primesCacheStats;
     }

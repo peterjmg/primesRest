@@ -283,6 +283,48 @@ public class PrimesCacheControllerTest
     }
 
     @Test
+    public void primes100InStreamTest()
+    {
+        RestAssuredMockMvc.given().
+                when().
+                get("/primesCache/100?opt=DS").
+                then().
+                statusCode(200).
+                contentType(ContentType.JSON).
+                body("initial", equalTo(100)).
+                body("primes", hasSize(primes100.length)).
+                body("primes", contains(primes100));
+    }
+
+    @Test
+    public void primes100InSieveStreamTest()
+    {
+        RestAssuredMockMvc.given().
+                when().
+                get("/primesCache/100?opt=SS").
+                then().
+                statusCode(200).
+                contentType(ContentType.JSON).
+                body("initial", equalTo(100)).
+                body("primes", hasSize(primes100.length)).
+                body("primes", contains(primes100));
+    }
+
+    @Test
+    public void primes100InSieveStreamParallelTest()
+    {
+        RestAssuredMockMvc.given().
+                when().
+                get("/primesCache/100?opt=SP").
+                then().
+                statusCode(200).
+                contentType(ContentType.JSON).
+                body("initial", equalTo(100)).
+                body("primes", hasSize(primes100.length)).
+                body("primes", contains(primes100));
+    }
+
+    @Test
     public void invalidOptionTest()
     {
         RestAssuredMockMvc.given().

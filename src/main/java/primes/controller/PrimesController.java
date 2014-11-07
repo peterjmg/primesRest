@@ -35,7 +35,7 @@ public class PrimesController {
             throws PrimesException {
 
         logger.info(String.format("Generating primes with max value %,d using option %s, " +
-                "and useCache %b)", maxValue, opt, useCache));
+                "and useCache %b", maxValue, opt, useCache));
 
         List<Integer> values;
 
@@ -53,7 +53,7 @@ public class PrimesController {
 
         endTime = System.currentTimeMillis();
 
-        logger.info(String.format("Generated %,d primes with max value %,d, in %,d ms)",
+        logger.info(String.format("Generated %,d primes with max value %,d, in %,d ms",
                 values.size(), maxValue, endTime - startTime));
 
         return new Primes(maxValue, values);
